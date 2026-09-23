@@ -46,3 +46,6 @@ Thumbs.db
 Desktop.ini
 .repo_memory/
 .smart/
+
+# Local scc artifacts
+.scc/
