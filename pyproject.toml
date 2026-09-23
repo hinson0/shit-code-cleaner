@@ -1,32 +1,7 @@
 [project]
 name = "shit-code-cleaner"
 version = "0.1.0"
-description = "A read-only, single-file code review agent"
+description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.14,<3.15"
-dependencies = ["openai>=2,<3", "pydantic>=2.12,<3"]
-
-[project.scripts]
-scc = "scc.cli:main"
-
-[build-system]
-requires = ["hatchling>=1.27,<2"]
-build-backend = "hatchling.build"
-
-[tool.hatch.build.targets.wheel]
-packages = ["src/scc"]
-
-[dependency-groups]
-dev = ["pytest>=8.4,<10", "ruff>=0.14,<1", "httpx>=0.28,<1"]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-pythonpath = ["src"]
-addopts = "-q --basetemp=.scc/pytest"
-
-[tool.ruff]
-target-version = "py314"
-line-length = 100
-
-[tool.ruff.lint]
-select = ["E", "F", "I", "UP", "B"]
+requires-python = ">=3.14"
+dependencies = []
