@@ -33,8 +33,10 @@
 
 ## 工具
 
-- 使用 `desktop-remote-commander` MCP 或 `mac-ad-mcp` 读取我的本地目录 `~/repos/shit-code-cleaner`。
-- 二者都不使用时，直接停止工作。
+- 网页版 chatgpt:
+  - 使用 `desktop-remote-commander` MCP 或 `mac-ad-mcp` 读取我的本地目录 `~/repos/shit-code-cleaner`。
+  - 二者都不使用时，直接停止工作。
+- 本地开发环境：直接使用本地文件系统、终端和项目工具读取代码，不需要通过 MCP。
 
 ## 工作流程
 

@@ -28,3 +28,11 @@ uv sync --python 3.14 --no-install-project → 成功，安装 22 个包，不�
 产品代码写入被工具安全检查拦截，后续目录核验确认 src/ 不存在。
 构建、CLI、真实模型调用：未验证。缺固定模型评测基线。
 先解决写入阻塞，再实现文件工具、转绿测试，继续 Agent Loop；本次未提交或推送。
+
+## 收尾核验
+uv run --no-sync python --version → Python 3.14.2。
+uv lock --check → 通过。
+uv run --no-sync ruff format tests → 格式化 1 个文件；ruff check tests → 通过。
+git diff --check → 通过。
+uv run --no-sync pytest tests/unit/test_files.py --tb=line → 16 failed，仍全部缺 scc 模块。
+发现 AGENTS.md 有非本次写入的工作区改动，已重新读取，未覆盖。

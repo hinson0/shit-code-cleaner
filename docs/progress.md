@@ -11,3 +11,6 @@
 - 模型验收：真实调用未验证；缺固定效果评测基线，未宣称质量提升。
 - 下一步：解决写入阻塞，完成文件工具并转绿测试，再实现有界 Agent Loop。
 - 当天记录：[Day 01](daily/day01-agent-loop.md)。
+
+收尾：uv lock --check、uv run --no-sync ruff check tests、git diff --check 通过。
+最终测试：uv run --no-sync pytest tests/unit/test_files.py --tb=line → 16 failed（缺少 scc 模块）。
