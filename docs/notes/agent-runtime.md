@@ -67,3 +67,22 @@ if target 不属于 repo_root:
 ```
 
 ###
+
+```python
+
+while True:
+
+    response = model(messages, tools)
+
+    if response 有 tool_call:
+        result = execute_tool(response.tool_call)
+        messages 加入 tool_call 和 result
+        continue
+
+    return response.final_answer
+
+也就是数 llm 接收到用户的需求(messages), 然后也告诉了 llm 你有哪些 tools 可以使用.
+然后 llm 返回的 response 就可以得到 llm 想调用的工具了.
+
+然后执行tool,得到 tool 的返回结果.然后把结果又加入到 这个循环不断重复.最后llm deside 结束了. 就返回最后的结果.
+```
