@@ -47,6 +47,17 @@
 5. 使用 uv 管理项目与依赖。
 6. 使用 Python 3.14 语法，不使用废弃语法，也不使用超过 Python 3.14 的语法。
 
+## 文档分工
+
+- ChatGPT 默认维护 `docs/daily/`：每次学习 / 实践结束后更新。
+- ChatGPT 默认维护 `docs/progress.md`：每次完成或推进可验收增量后更新。
+- ChatGPT 在出现重要架构或技术取舍时维护 `docs/decisions/`。
+- ChatGPT 仅在学习路线实际变化时维护 `docs/roadmap.md`，不做日常流水更新。
+- ChatGPT 在实际架构发生变化后维护 `docs/architecture.md`。
+- 用户只专注 Agent 学习、核心代码与实验；`docs/notes/` 作为个人学习笔记，由用户自愿维护。
+- 除非用户明确要求，ChatGPT 不修改 `docs/notes/`。
+- 符合更新条件时直接维护项目文档，不额外询问“是否更新”；涉及产品方向变化时先说明取舍。
+
 ## 目录边界
 
 - `src/scc/review.py`：统一业务入口，CLI / API / Worker 共用。

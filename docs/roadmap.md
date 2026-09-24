@@ -3,15 +3,15 @@
 每天 21:00–23:00；Day 编号按学习日推进，不绑定日期。
 以下均为目标，完成情况见 `progress.md`。
 
-| 阶段 | 重点 | 验收 |
-|---|---|---|
-| Day 1–2 | Agent Loop、工具调用 | 单 Agent 调用只读工具完成一次审查 |
-| Day 3–4 | MCP | 复用已有工具，经 MCP 调用成功 |
-| Day 5–7 | LangGraph、Trace、评测 | 流程可追踪，固定评测集可运行 |
-| Day 8–10 | Reviewer 闭环 | Git diff → Markdown 报告 |
-| Day 11–20 | Code RAG | 检索相关代码，对比审查效果 |
-| Day 21–30 | Memory、Checkpoint | 规则与反馈可管理，任务可恢复 |
-| Day 31–45 | 多 Agent | 协作审查，与单 Agent 基线对比 |
-| Day 46–60 | PR 接入与部署 | 验证权限、重试、幂等和部署 |
+| 阶段      | 重点                   | 验收                              |
+| --------- | ---------------------- | --------------------------------- |
+| Day 1–2   | Agent Loop、工具调用   | 单 Agent 调用只读工具完成一次审查 |
+| Day 3–4   | MCP                    | 复用已有工具，经 MCP 调用成功     |
+| Day 5–7   | LangGraph、Trace、评测 | 流程可追踪，固定评测集可运行      |
+| Day 8–10  | Reviewer 闭环          | Git diff → Markdown 报告          |
+| Day 11–20 | Code RAG               | 检索相关代码，对比审查效果        |
+| Day 21–30 | Memory、Checkpoint     | 规则与反馈可管理，任务可恢复      |
+| Day 31–45 | 多 Agent               | 协作审查，与单 Agent 基线对比     |
+| Day 46–60 | PR 接入与部署          | 验证权限、重试、幂等和部署        |
 
 先跑通最小闭环，再扩展能力；不提前创建未来阶段的模块。
