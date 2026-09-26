@@ -5,6 +5,7 @@ class ToolError(Exception):
     pass
 
 
+# %%
 def read_file(repo_root: Path, path: str) -> str:
     p = Path(path)
 
@@ -18,10 +19,12 @@ def read_file(repo_root: Path, path: str) -> str:
     # repo_root + Agent 给出的 path
     target = (root / path).resolve()
 
-    if repo_root not in p.parents:
+    # 在repo里
+    if not target.is_relative_to(root):
         raise ToolError("你必须要在仓库里面 不可以逃出仓库外")
 
-    if not target.is_fifo():
+    # 不是file
+    if not target.is_file():
         raise ToolError
 
     # Tool 真正执行外部操作的地方
