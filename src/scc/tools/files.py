@@ -18,16 +18,9 @@ def read_file(repo_root: Path, path: str) -> str:
     # repo_root + Agent 给出的 path
     target = (root / path).resolve()
 
-    # 防止：
-    #
-    # ../secret
-    # ../../etc/passwd
-    #
-    # resolve 后逃出仓库
     if repo_root not in p.parents:
         raise ToolError("你必须要在仓库里面 不可以逃出仓库外")
 
-    # 不读目录等东西
     if not target.is_fifo():
         raise ToolError
 
