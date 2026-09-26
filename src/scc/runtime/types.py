@@ -1,4 +1,6 @@
+from collections.abc import Sequence
 from dataclasses import dataclass
+from typing import Protocol
 
 
 @dataclass(frozen=True, slots=True)
@@ -21,3 +23,19 @@ class ModelTurn:
 
 
 type ToolSpec = dict[str, object]
+
+
+class AgentModel(Protocol):
+    def start(
+        self,
+        *,
+        prompt: str,
+        tools: Sequence[ToolSpec],
+    ) -> ModelTurn: ...
+
+    def resume(
+        self,
+        *,
+        tool_results: Sequence[ToolResult],
+        tools: Sequence[ToolSpec],
+    ) -> ModelTurn: ...

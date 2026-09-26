@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from scc.reviewer import AgentModel, ToolResult, ToolSpec
+from scc.runtime.types import AgentModel, ToolCall, ToolResult, ToolSpec
 from scc.tools.files import ToolError, read_file
 
 
@@ -8,7 +8,7 @@ class AgentProtocolError(RuntimeError):
     pass
 
 
-class StepLimitExceeded(RuntimeError):
+class AgentStepLimitError(RuntimeError):
     pass
 
 
@@ -16,7 +16,7 @@ READ_FILE_TOOL: ToolSpec = {
     "type": "function",
     "function": {
         "name": "read_file",
-        "description": "Read a UTF-8 source file inside the repository.",
+        "description": "Read one UTF-8 source file inside the repository.",
         "parameters": {
             "type": "object",
             "properties": {
@@ -32,53 +32,71 @@ READ_FILE_TOOL: ToolSpec = {
 }
 
 
+def _execute_tool(repo_root: Path, call: ToolCall) -> ToolResult:
+    if call.name != "read_file":
+        return ToolResult(
+            call_id=call.call_id,
+            output=f"ERROR: unknown tool {call.name!r}",
+        )
+
+    if set(call.arguments) != {"path"}:
+        return ToolResult(
+            call_id=call.call_id,
+            output="ERROR: read_file expects exactly one argument: path",
+        )
+
+    path = call.arguments["path"]
+    if not isinstance(path, str):
+        return ToolResult(
+            call_id=call.call_id,
+            output="ERROR: path must be a string",
+        )
+
+    try:
+        content = read_file(repo_root, path)
+    except ToolError as exc:
+        return ToolResult(
+            call_id=call.call_id,
+            output=f"ERROR: {exc}",
+        )
+
+    return ToolResult(
+        call_id=call.call_id,
+        output=content,
+    )
+
+
 def run_agent(
     *,
     model: AgentModel,
     repo_root: Path,
     prompt: str,
     max_steps: int = 4,
-):
+) -> str:
     if max_steps < 1:
-        raise ValueError("max steps 参数不能小于1")
+        raise ValueError("max_steps must be >= 1")
 
-    turn = model.start(prompt=prompt, tools=[READ_FILE_TOOL])
+    turn = model.start(
+        prompt=prompt,
+        tools=[READ_FILE_TOOL],
+    )
 
     for step in range(max_steps):
-        if not turn.tool_calls:
-            if not turn.final_text:
-                raise AgentProtocolError("没有tool_calls，又没有final_text")
+        if turn.tool_calls:
+            if step == max_steps - 1:
+                break
+
+            results = tuple(_execute_tool(repo_root, call) for call in turn.tool_calls)
+
+            turn = model.resume(
+                tool_results=results,
+                tools=[READ_FILE_TOOL],
+            )
+            continue
+
+        if turn.final_text:
             return turn.final_text
 
-        results = []
+        raise AgentProtocolError("model returned neither tool_calls nor final_text")
 
-        for tool_call in turn.tool_calls:
-            if tool_call.name != "read_file":
-                tool_result = ToolResult(
-                    call_id=tool_call.call_id,
-                    output="工具名字不是read_file",
-                )
-                results.append(tool_result)
-
-            # 检查tool call的path参数是否合法
-            path = tool_call.arguments.get("path")
-            if not isinstance(path, str):
-                tool_result = ToolResult(
-                    call_id=tool_call.call_id, output="参数path不是一个字符串"
-                )
-                results.append(tool_result)
-
-            # 执行read_file
-            try:
-                content = read_file(repo_root, path)
-                tool_result = ToolResult(call_id=tool_call.call_id, output=content)
-            except ToolError:
-                tool_result = ToolResult(
-                    call_id=tool_call.call_id, output="读取文件失败"
-                )
-
-            results.append(tool_result)
-
-        turn = model.resume(tools=[READ_FILE_TOOL], tool_results=results)
-
-    raise StepLimitExceeded
+    raise AgentStepLimitError(f"agent exceeded max_steps={max_steps}")
