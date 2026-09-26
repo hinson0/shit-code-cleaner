@@ -5,7 +5,6 @@ class ToolError(Exception):
     pass
 
 
-# %%
 def read_file(repo_root: Path, path: str) -> str:
     p = Path(path)
 
