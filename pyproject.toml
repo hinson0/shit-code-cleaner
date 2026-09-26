@@ -1,12 +1,29 @@
 [project]
 name = "shit-code-cleaner"
 version = "0.1.0"
-description = "Add your description here"
+description = "Agent-based code review learning project"
 readme = "README.md"
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "openai>=3.19.2",
+    "ruff>=0.16.9",
+]
 
 [dependency-groups]
 dev = [
     "pytest>=9.1.1",
 ]
+
+[build-system]
+requires = ["uv_build>=0.12.19,<0.13"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "scc"
+
+
+[tool.ruff]
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
