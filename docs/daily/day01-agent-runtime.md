@@ -21,18 +21,20 @@
 
 ## 实践改动
 
-- 已创建 `src/tools/`、`src/runtime/`、`src/agent/` 的模块骨架。
-- 当前 `files.py`、`loop.py`、`reviewer.py` 均为空文件，尚不构成已实现能力。
+- 产品主线已创建 `src/scc/tools/`、`src/scc/runtime/`、`src/scc/agent/`。
+- 用户已开始实现 `files.py`；`loop.py` 尚未实现，`reviewer.py` 当前仅有角色职责注释。
 - 单元测试代码由 ChatGPT 直接提供，用户不把学习时间投入测试设计。
+- 完整参考答案新增到 `experiments/reference/day01-agent-runtime/`，产品代码禁止依赖该目录。
 
 ## 验收结果
 
-- 已核验当前源码文件存在但内容为空。
-- Agent Loop：未实现，未验证。
-- `read_file(repo_root: Path, path: str) -> str`：未实现，未验证。
-- 单 Agent 实际 Tool Calling：未实现，未验证。
+- 产品主线：尚未完成 Day 1 验收；本次未运行产品测试。
+- `read_file`：已有用户实现，但尚未作为完成项验证。
+- Agent Loop：`src/scc/runtime/loop.py` 尚未实现。
+- Reviewer：`src/scc/agent/reviewer.py` 尚未实现实际行为。
+- 参考实现：`uv run pytest experiments/reference/day01-agent-runtime/tests -q` → `6 passed`。
+- 参考 demo：完成一次 Tool Call 并回传 Observation，输出 `model calls: 2`。
 - 真实模型调用：未验证。
-- 当前没有测试目录或可运行测试结果。
 
 ## 问题与下一步
 
