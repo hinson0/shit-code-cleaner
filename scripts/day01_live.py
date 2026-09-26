@@ -4,10 +4,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from scc.llm import DeepSeekModel
-from scc.reviewer import (
-    REVIEWER_INSTRUCTIONS,
-    review,
-)
+from scc.review import REVIEWER_INSTRUCTIONS, review
 
 
 def main() -> None:

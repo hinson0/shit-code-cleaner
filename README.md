@@ -11,7 +11,7 @@
 
 ## 当前状态
 
-项目仍处于 Day 01：Agent Runtime 与最小闭环。
+Day 01「Agent Runtime 与最小闭环」已完成并验收；下一步进入 Day 02「Tool Calling、Registry 与 Router」。
 实际完成情况以 `docs/progress.md` 为准，路线规划见 `docs/roadmap.md`。
 
 ## 开发
