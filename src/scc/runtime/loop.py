@@ -76,8 +76,9 @@ def run_agent(
                 tool_result = ToolResult(
                     call_id=tool_call.call_id, output="读取文件失败"
                 )
-                results.append(tool_result)
 
-            turn = model.resume(tools=[READ_FILE_TOOL], tool_results=results)
+            results.append(tool_result)
+
+        turn = model.resume(tools=[READ_FILE_TOOL], tool_results=results)
 
     raise StepLimitExceeded

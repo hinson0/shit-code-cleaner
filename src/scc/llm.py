@@ -1,3 +1,4 @@
+import json
 import os
 from collections.abc import Sequence
 
@@ -5,6 +6,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 from scc.reviewer import ModelTurn, ToolResult, ToolSpec
+from scc.runtime.types import ToolCall
 
 load_dotenv()
 

@@ -26,7 +26,6 @@ uv run ruff check .
 
 - `src/scc/`：产品代码
 - `tests/`：产品测试
-- `experiments/reference/`：隔离参考实现，不作为产品代码依赖
 - `docs/`：路线、进度、架构、每日记录和技术决策
 
 ## 原则
